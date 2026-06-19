@@ -4,6 +4,7 @@ import __init__ as init
 import sys
 VERSION = init.__version__
 from termcolor import colored
+from tuna_banner import print_banner
 
 
 """
@@ -31,15 +32,15 @@ if len(sys.argv) > 1 and sys.argv[1] in ["-version", "--version"]:
 
 # Prints the big fish logo
 
-print(colored("\n      _______ _    _ _   _                     ___           \n     |__   __| |  | | \\ | |   /\\            __/__/__  _      \n","white", force_color = True) + colored(" ~~~~~~","light_grey", force_color = True)+colored(" | |  | |  | |  \\| |  /  \\","white", force_color = True)+colored(" ~~~~~~~~","light_grey", force_color = True)+colored(" / .      \\/ ) ","white", force_color = True)+colored("~~~~\n ~~~~~~","light_grey")+colored(" | |  | |  | | . ` | / /\\ \\","white", force_color = True)+colored(" ~~~~~~","light_grey", force_color = True)+colored(" (     ))    (","white", force_color = True)+colored(" ~~~~~\n ~~~~~~","light_grey", force_color = True)+colored(" | |  | |__| | |\\  |/ ____ \\ ","white", force_color = True)+colored("~~~~~~","light_grey", force_color = True)+colored(" \\___  ___/\\_) ","white", force_color = True)+colored("~~~~","light_grey", force_color = True)+colored("\n        |_|   \\____/|_| \\_/_/    \\_\\          \\\\_\\           ", "white", force_color = True))
-
+print_banner()
 print(colored(f"\n\nWelcome to version {VERSION} of TUNA!\n", "light_grey", force_color=True))
 print(colored("Importing required libraries...  ", "light_grey", force_color=True),end=""); sys.stdout.flush()
 
 import numpy as np
 from numpy import ndarray
 import time
-from tuna_util import error, Method, atomic_properties, calculation_types, angstrom_to_bohr, one_dimension_to_three, electronic_structure_methods, basis_types, finish_calculation, log, log_spacer
+# from tuna_util import error, Method, atomic_properties, calculation_types, angstrom_to_bohr, one_dimension_to_three, electronic_structure_methods, basis_types, finish_calculation, log, log_spacer
+from tuna_util import error, Method, atomic_properties, calculation_types, angstrom_to_bohr, one_dimension_to_three, electronic_structure_methods, basis_types, finish_calculation
 from tuna_calc import Calculation
 import tuna_energy as energ
 import tuna_opt as opt
@@ -280,7 +281,7 @@ def run_calculation(calculation_type: str, calculation: Calculation, atomic_symb
             multiple_iterations = False if calculation_type == "FORCE" else True
 
             opt.optimise_geometry(calculation, atomic_symbols, coordinates, multiple_iterations = multiple_iterations)
-            
+
 
         # Harmonic frequency
 
@@ -308,7 +309,7 @@ def run_calculation(calculation_type: str, calculation: Calculation, atomic_symb
 
             freq.calculate_harmonic_frequency(calculation, molecule=optimised_molecule, energy=optimised_energy)
 
-            
+
         # Ab initio molecular dynamics
 
         case "MD": 
@@ -318,7 +319,7 @@ def run_calculation(calculation_type: str, calculation: Calculation, atomic_symb
             if not calculation.no_trajectory: 
                 
                 calculation.trajectory = True
-  
+
             md.run_molecular_dynamics_simulation(calculation, atomic_symbols, coordinates)
             
             
@@ -384,7 +385,7 @@ def main() -> None:
 
 
 
-if __name__ == "__main__": 
+if __name__ == "__main__":
 
     try:
 
@@ -393,5 +394,5 @@ if __name__ == "__main__":
             main()
 
     except KeyboardInterrupt: 
-        
+
         error("The TUNA calculation has been interrupted by the user. Goodbye!")
