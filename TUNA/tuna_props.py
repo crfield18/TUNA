@@ -816,45 +816,45 @@ def print_density_information(calculation: Calculation) -> None:
 
         case "MP2" | "SCS-MP2":
 
-            log(f"\n Using the MP2 {density_type} density for property calculations.", calculation, 1)
+            log(f"\n Using the MP2 {density_type} density for analytic property calculations.", calculation, 1)
 
         case "OMP2":
 
-            log("\n Using the orbital-optimised MP2 relaxed density for property calculations.", calculation, 1)
+            log("\n Using the orbital-optimised MP2 relaxed density for analytic property calculations.", calculation, 1)
 
         case "AO-MP2":
 
-            warning("Using the Hartree-Fock density, not the MP2 density, for property calculations.")
+            warning("Using the Hartree-Fock density, not the MP2 density, for analytic property calculations.")
 
         case "CCSD[T]" | "CCSD(T)":
 
-            warning("Using the linearised CCSD density for property calculations.")
+            warning("Using the linearised CCSD density for analytic property calculations.")
 
         case "QCISD[T]" | "QCISD(T)":
 
-            warning("Using the linearised QCISD density for property calculations.")
+            warning("Using the linearised QCISD density for analytic property calculations.")
 
     if method.method_base in ["MP3", "MP4"]:
 
-        warning(f"Using the {density_type} MP2 density for property calculations.")
+        warning(f"Using the {density_type} MP2 density for analytic property calculations.")
 
     elif method.coupled_cluster_method:
 
-        log("\n Using the linearised coupled cluster density for property calculations.", calculation, 1)
+        log("\n Using the linearised coupled cluster density for analytic property calculations.", calculation, 1)
 
     elif method.excited_state_method or calculation.time_dependent:
 
         if method.density_functional_method:
 
-            log(f"\n Using the unrelaxed TD-DFT density for property calculations.", calculation, 1)
+            log(f"\n Using the unrelaxed TD-DFT density for analytic property calculations.", calculation, 1)
 
         else:
 
-            log(f"\n Using the unrelaxed TD-HF density for property calculations.", calculation, 1)
+            log(f"\n Using the unrelaxed TD-HF density for analytic property calculations.", calculation, 1)
 
     if method.density_functional_method and calculation.MPC_prop != 0 and not calculation.time_dependent:
 
-        log(f"\n Using the double-hybrid {density_type} density for property calculations.", calculation, 1)
+        log(f"\n Using the double-hybrid {density_type} density for analytic property calculations.", calculation, 1)
 
 
     return
